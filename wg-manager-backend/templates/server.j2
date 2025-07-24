@@ -1,3 +1,6 @@
+{%- if gen_from_config -%}
+{{data.configuration}}
+{%- else -%}
 [Interface]
 Address = {{ data.address }}/{{ data.subnet }}{%- if is_ipv6 -%},{{ data.v6_address }}/{{ data.v6_subnet }}{%- endif %}
 ListenPort = {{ data.listen_port }}
@@ -19,3 +22,4 @@ PresharedKey = {{ peer.shared_key }}
 {%- endif %}
 AllowedIPs = {{ peer.address }}/32{%- if is_ipv6 -%},{{ peer.v6_address }}/128{%- endif %}
 {% endfor %}
+{%- endif %}

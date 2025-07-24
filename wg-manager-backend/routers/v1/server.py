@@ -103,7 +103,7 @@ def edit_server(
 
     # Update server
     server = schemas.WGServer(**data["server"])
-    server.configuration = script.wireguard.generate_config(server)
+    server.configuration = script.wireguard.generate_config(server, gen_from_config = True)
     server = old.update(sess, new=server)
 
     # Update peers

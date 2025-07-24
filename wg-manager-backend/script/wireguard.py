@@ -206,7 +206,7 @@ def move_server_dir(interface, interface1):
     os.rename(old_server_dir, new_server_dir)
 
 
-def generate_config(obj: typing.Union[typing.Dict[schemas.WGPeer, schemas.WGServer], schemas.WGServer]):
+def generate_config(obj: typing.Union[typing.Dict[schemas.WGPeer, schemas.WGServer], schemas.WGServer], gen_from_config = False):
     if isinstance(obj, dict) and "server" in obj and "peer" in obj:
         template = "peer.j2"
         is_ipv6 = obj["server"].v6_address is not None
@@ -219,6 +219,7 @@ def generate_config(obj: typing.Union[typing.Dict[schemas.WGPeer, schemas.WGServ
     result = util.jinja_env.get_template(template).render(
         data=obj,
         is_ipv6=is_ipv6
+        gen_from_config=gen_from_config
     )
 
     return result
